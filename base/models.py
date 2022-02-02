@@ -13,9 +13,6 @@ class Tag(models.Model):
 
 
 
-    
-
-
 class Note(models.Model):
     title = models.CharField(max_length=100)
     note_subject = models.TextField(default=NULL)

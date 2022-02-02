@@ -10,30 +10,52 @@
 </head>
 <body>
 
+    
     <div class="container mt-5">
         <div class="row">
-            <div class="col-sm-4">
-                
-                <form action="" method="POST">
-                  
-                    <input type="button" id="btnsave" class="btn btn-success" value="Save">
-            
-                </form>
+            <div class="col-sm-3">
+                <h1>hi</h1>
+               
             </div>
 
             <div class="col-sm-7">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <input class="form-control mb-1" type="text" name="title" id="titleid">
+                            <textarea class="form-control" name="subject" id="subjectid" cols="30" rows="10"></textarea>
+                            <input type="button" id="btnsave" class="btn btn-success" value="Save">
+                        </form>
+                    </div>
+                </div>
 
-               <form action="" method="POST">
-                   {% csrf_token %}
-                   <input class="form-control mb-1" type="text" name="title" id="titleid">
-                   <textarea class="form-control" name="subject" id="subjectid" cols="30" rows="10"></textarea>
-                   <input type="submit" value="Save" name="save" id="saveid">
-               </form>
-              
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h1 class="text-center">Note area</h1>
+                        {% for note in notes  %}
+                          <p>{{note}}</p><hr>
+                        {% endfor %}
+                    </div>
+                    <div class="col-sm-6">
+                        <h1 class="text-center"> checkbox area</h1>
+                        <input name="tag" type="checkbox" value="2"> Chemstry <br>
+                        <input name="tag" type="checkbox" value="3"> Physics <br>
+                        <input type="button" id="checkid" value="checkbox submit"><br>
+                    </div>
+                </div>
+               
             </div>
         </div>  
     </div>
 
     <script src="{% static 'base/js/jquery.js' %}"></script>
+    <script src="{% static 'base/js/popper.js' %}"></script>
+    <script src="{% static 'base/js/bootstrap.js' %}"></script>
+
+
+
+    {% include "base/ajax.html" %}
+
 </body>
 </html>

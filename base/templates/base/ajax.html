@@ -1,0 +1,45 @@
+<script>
+
+
+$("#btnsave").click(function(){
+        console.log("Save Button Clicked");
+        let title = $("#titleid").val();
+        let subject = $("#subjectid").val();
+        let csr = $("input[name=csrfmiddlewaretoken]").val();
+
+        console.log(title);
+        console.log(subject);
+
+        noteData = {title: title, subject: subject};
+        console.log(noteData);
+
+        $.ajax({
+
+            url: "{% url 'save' %}",
+            method: "POST",
+            data: noteData,
+            success: function(data){
+                console.log(data);
+                notes = data.notes;
+                console.log(data.xys);
+
+                if(data.status == 1){
+                console.log(notes);
+                }
+                
+            }
+        });
+        
+});
+
+$("#checkid").click(function(){
+
+    let check = $("input[name=tag]").val();
+    console.log(check);
+});
+
+$("h1").click(function(){
+    console.log("hi");
+});
+
+</script>
