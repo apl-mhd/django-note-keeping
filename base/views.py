@@ -1,3 +1,14 @@
 from django.shortcuts import render
 
-# Create your views here.
+from . models import Tag
+
+
+def home(request):
+
+    tags = Tag.objects.values()
+
+    context = {
+        'tags':list(tags),
+    }
+
+    return render(request, 'base/home.html', context)

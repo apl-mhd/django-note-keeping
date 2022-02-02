@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'base/css/bootstrap.css' %}">
+</head>
+<body>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-sm-4">
+                
+                <form action="" method="POST">
+                  
+                    <input type="button" id="btnsave" class="btn btn-success" value="Save">
+            
+                </form>
+            </div>
+
+            <div class="col-sm-7">
+
+               <form action="" method="POST">
+                   {% csrf_token %}
+                   <input class="form-control mb-1" type="text" name="title" id="titleid">
+                   <textarea class="form-control" name="subject" id="subjectid" cols="30" rows="10"></textarea>
+                   <input type="submit" value="Save" name="save" id="saveid">
+               </form>
+              
+            </div>
+        </div>  
+    </div>
+
+    <script src="{% static 'base/js/jquery.js' %}"></script>
+</body>
+</html>
