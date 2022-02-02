@@ -46,17 +46,23 @@ $("#btnsave").click(function(){
         
 });
 
+//form clear
+$("#btnclear").click(function(){
+    $("form")[0].reset();
+    $("#checkbox-select").html('Tags: ');
+
+
+});
+
+//Check Box
 let checkArr = [];
-
-
 $("input[type=checkbox]").click(function(){
-
    
     checkArr = [];
-    let checkBoxOutput = '';
+    let checkBoxOutput = 'Tags: ';
 
     $(':checkbox:checked').each(function () {
-        checkBoxOutput += "<span>" + $(this).val() + "</span>";
+        checkBoxOutput += "<span>" + $(this).attr('name') + "</span> ";
         checkArr.push($(this).val());
        });
 

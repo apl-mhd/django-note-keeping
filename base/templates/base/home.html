@@ -14,7 +14,19 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-sm-3">
-                <h1>hi</h1>
+                <h1>tags</h1>
+                {{t}}
+                {{children}}
+                <hr>
+
+                {% for i in tags %}
+                    {% if i.children.all %}
+                      <p>{{i.tag_name}}</p>
+                      {% if i.children.all %}
+                        <p>{{i.tag_name}}</p>
+                       {% endif %}
+                    {% endif %}
+                {% endfor %}
                
             </div>
 
@@ -23,31 +35,38 @@
                     <div class="col-sm-12">
                         <form action="" method="POST">
                             {% csrf_token %}
-                            <input class="form-control mb-1" type="text" name="title" id="titleid">
-                            <textarea class="form-control" name="subject" id="subjectid" cols="30" rows="10"></textarea>
-                            <input type="button" id="btnsave" class="btn btn-success" value="Save">
+                            <input placeholder="Note Title" class="form-control mb-1" type="text" name="title" id="titleid">
+                            <textarea placeholder="Lorem Ipsum Dollar site ammet" class="form-control" name="subject" id="subjectid" cols="30" rows="10"></textarea>
+                            <!-- <input type="button" id="btnsave" class="btn btn-success" value="Save"> -->
                         </form>
-                        <div id="checkbox-select" class="">
-                            <span style="display: hidden;">a</span>
+                        <div class="d-flex justify-content-between mt-2">
+                            <div id="checkbox-select" class="">
+                                <span>Tags: </span>
+                            </div>
+                            <div>
+                            <input type="button" id="btnclear" class="btn btn-warning" value="Clear">
+                            <input type="button" id="btnsave" class="btn btn-success" value="Save">
+                            </div>
+                            
                         </div>
+                       
                     </div>
                 </div>
 
+
+
                 <div class="row mt-4">
-                    <div class="col-sm-6">
+                    <div class="col-sm-4">
                         <div id="notetitle">
-                            <h1 class="text-center">Note area</h1>
                             {% for note in notes  %}
-                              <p>{{note}}</p><hr>
+                              <p>{{note}}</p>
                             {% endfor %}
                         </div>
                     
                     </div>
-                    <div class="col-sm-6">
-                        <h1 class="text-center"> checkbox area</h1>
+                    <div class="col-sm-8">
                         <input name="Chemistry" type="checkbox"  value="3"> Chemstry <br>
                         <input name="Physics" type="checkbox" value="1"> Physics <br>
-                        <input type="button" id="checkid" value="checkbox submit"><br>
                     </div>
                 </div>
                
@@ -58,8 +77,6 @@
     <script src="{% static 'base/js/jquery.js' %}"></script>
     <script src="{% static 'base/js/popper.js' %}"></script>
     <script src="{% static 'base/js/bootstrap.js' %}"></script>
-
-
 
     {% include "base/ajax.html" %}
 

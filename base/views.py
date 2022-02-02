@@ -11,7 +11,10 @@ from . models import Note
 def home(request):
   
     notes = Note.objects.all()
-    context = { 'notes': notes}
+    tags = Tag.objects.all()
+    children = Tag.objects.get(id=8).children.all()
+    t = list(Tag.objects.values())
+    context = { 'notes': notes, 'tags':tags, 't':t, 'children':children}
     return render(request, 'base/home.html', context)
 
 @csrf_exempt
