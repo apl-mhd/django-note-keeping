@@ -1,12 +1,21 @@
 <script>
 
+let checkArr = [];
+
+//Form Clear
+function clearForm(){
+    $("form")[0].reset();
+    $("#checkbox-select").html('Tags: ');
+    $('input:checkbox').prop( "checked", false );
+    checkArr = [];
+}
 
 $("#btnsave").click(function(){
         console.log("Save Button Clicked");
         let title = $("#titleid").val();
         let subject = $("#subjectid").val();
         let csr = $("input[name=csrfmiddlewaretoken]").val();
-        let checkArr = [];
+         checkArr = [];
          $(':checkbox:checked').each(function () {
         
         checkArr.push($(this).val());
@@ -18,7 +27,6 @@ $("#btnsave").click(function(){
         //console.log(subject);
 
         noteData = {title: title, subject: subject, checkBox:JSON.stringify(checkArr)};
-
         console.log(noteData);
 
         $.ajax({
@@ -38,7 +46,10 @@ $("#btnsave").click(function(){
                     }
 
                     $("#notetitle").html(output);
-                    $("form")[0].reset();
+                    clearForm();
+                    //$("form")[0].reset();
+                    //$("#checkbox-select").html('Tags: ');
+
                 }
                 
             }
@@ -46,16 +57,14 @@ $("#btnsave").click(function(){
         
 });
 
+
 //form clear
 $("#btnclear").click(function(){
-    $("form")[0].reset();
-    $("#checkbox-select").html('Tags: ');
-
-
+    clearForm();
+    //console.log($('input:checkbox'));
 });
 
 //Check Box
-let checkArr = [];
 $("input[type=checkbox]").click(function(){
    
     checkArr = [];
