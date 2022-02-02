@@ -6,11 +6,19 @@ $("#btnsave").click(function(){
         let title = $("#titleid").val();
         let subject = $("#subjectid").val();
         let csr = $("input[name=csrfmiddlewaretoken]").val();
+        let checkArr = [];
+         $(':checkbox:checked').each(function () {
+        
+        checkArr.push($(this).val());
+       });
 
-        console.log(title);
-        console.log(subject);
+        let output = '';
 
-        noteData = {title: title, subject: subject};
+        //console.log(title);
+        //console.log(subject);
+
+        noteData = {title: title, subject: subject, checkBox:JSON.stringify(checkArr)};
+
         console.log(noteData);
 
         $.ajax({
@@ -19,12 +27,18 @@ $("#btnsave").click(function(){
             method: "POST",
             data: noteData,
             success: function(data){
-                console.log(data);
+               // console.log(data);
                 notes = data.notes;
-                console.log(data.xys);
 
                 if(data.status == 1){
-                console.log(notes);
+                    notes = data.notes;
+
+                    for(let i =0; i< notes.length; i++){
+                        output += "<p>" + notes[i].title + "</p>";
+                    }
+
+                    $("#notetitle").html(output);
+                    $("form")[0].reset();
                 }
                 
             }
@@ -32,14 +46,23 @@ $("#btnsave").click(function(){
         
 });
 
-$("#checkid").click(function(){
+let checkArr = [];
 
-    let check = $("input[name=tag]").val();
-    console.log(check);
+
+$("input[type=checkbox]").click(function(){
+
+   
+    checkArr = [];
+    let checkBoxOutput = '';
+
+    $(':checkbox:checked').each(function () {
+        checkBoxOutput += "<span>" + $(this).val() + "</span>";
+        checkArr.push($(this).val());
+       });
+
+       $("#checkbox-select").html(checkBoxOutput);
+       console.log(checkArr);
 });
 
-$("h1").click(function(){
-    console.log("hi");
-});
 
 </script>

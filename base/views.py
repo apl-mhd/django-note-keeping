@@ -1,4 +1,5 @@
 from multiprocessing import context
+from traceback import print_tb
 from django.shortcuts import render,redirect
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -16,12 +17,18 @@ def home(request):
 @csrf_exempt
 def save_note(request):
 
-    print(request.POST)
+    print("-----------")
+    print(request.POST['checkBox'])
+    print("-----------")
+
+
 
     if request.method == 'POST':
         title = request.POST['title']
         subject = request.POST['subject']
-        note = Note(title = title, note_subject = subject)
+        note_tag = request.POST.get('checkBox')
+        print(note_tag)
+        note = Note(title = title, note_subject = subject, note_tag = note_tag)
         note.save()
         notes = list(Note.objects.values())
     return JsonResponse({'status':1, 'notes':notes})

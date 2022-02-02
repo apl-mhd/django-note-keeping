@@ -27,20 +27,26 @@
                             <textarea class="form-control" name="subject" id="subjectid" cols="30" rows="10"></textarea>
                             <input type="button" id="btnsave" class="btn btn-success" value="Save">
                         </form>
+                        <div id="checkbox-select" class="">
+                            <span style="display: hidden;">a</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row mt-4">
                     <div class="col-sm-6">
-                        <h1 class="text-center">Note area</h1>
-                        {% for note in notes  %}
-                          <p>{{note}}</p><hr>
-                        {% endfor %}
+                        <div id="notetitle">
+                            <h1 class="text-center">Note area</h1>
+                            {% for note in notes  %}
+                              <p>{{note}}</p><hr>
+                            {% endfor %}
+                        </div>
+                    
                     </div>
                     <div class="col-sm-6">
                         <h1 class="text-center"> checkbox area</h1>
-                        <input name="tag" type="checkbox" value="2"> Chemstry <br>
-                        <input name="tag" type="checkbox" value="3"> Physics <br>
+                        <input name="Chemistry" type="checkbox"  value="3"> Chemstry <br>
+                        <input name="Physics" type="checkbox" value="1"> Physics <br>
                         <input type="button" id="checkid" value="checkbox submit"><br>
                     </div>
                 </div>
