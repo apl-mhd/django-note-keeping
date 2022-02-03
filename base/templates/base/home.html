@@ -12,7 +12,7 @@
 
     
     <div class="container mt-5">
-        {{childTags}}
+        <!-- {{childTags}} -->
         <div class="row">
             <div class="col-sm-3">
                 <h1>Tags</h1>
@@ -54,10 +54,10 @@
                     </div>
                     <div class="col-sm-8">
                         <div class="overflow-auto" style="height: 100px;">
-                            <input name="Chemistry" type="checkbox" value="3"> Chemstry <br>
-                            <input name="Physics" type="checkbox" value="1"> Physics <br>
+                            {% for i in childTags  %}
+                              <input name="{{i.tag_name}}" type="checkbox" value="{{i.id}}"> {{i.tag_name}} <br>
+                            {% endfor %}
                         </div>
-                       
                     </div>
                 </div>
                

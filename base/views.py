@@ -42,32 +42,15 @@ def allTags():
 
 def home(request):
 
-
-
-#    SELECT * FROM child WHERE id not IN (SELECT parent_id FROM child);
-
-    #query = """SELECT * FROM base_tag WHERE id not in SELECT parent_id FROM base_tag"""
-
-    #employee_query = Employee.objects.filter(company='Private').only('id').all()
-    #Person.objects.value('name', 'age').filter(id__in=employee_query)
     a = Tag.objects.all()
-    b = Tag.objects.exclude(id__in = a)
-   # print(b)
-    c = Tag.objects.all()
-    d = Tag.objects.exclude(parent_id__in = c)
-    print(d)
+    print(list(a))
 
+    childTags = Tag.objects.filter(parent_id__in = a)
 
-    # table1.objects.exclude(id__in=
-    # table2.objects.filter(your_condition).values_list('id', flat=True))
-
-
-    #a = Tag.objects.exclude(parent_id__in = Tag.objects.all().values_list('id', flat=True))
-    #print(a)
 
     notes = Note.objects.all()
     tags = allTags()
-    childTags = list(Tag.objects.values())
+    
     context = { 'notes': notes, 'tags':tags, 'childTags': childTags}
 
     return render(request, 'base/home.html', context)
