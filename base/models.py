@@ -4,7 +4,7 @@ from django.test import tag
 
 
 class Tag(models.Model):
-    parent = models.ForeignKey('self', related_name='children', on_delete=models.CASCADE, blank=True, null=True)
+    parent = models.ForeignKey('self', blank=True, null=True, default= '0', related_name='children', on_delete=models.CASCADE)
     tag_name = models.CharField(max_length=255)
 
     def __str__(self):
