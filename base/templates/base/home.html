@@ -1,73 +1,94 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="{% static 'base/css/bootstrap.css' %}">
-</head>
-<body>
-
-    
+    <link rel="stylesheet" href="{% static 'base/css/bootstrap.css' %}" />
+  </head>
+  <body>
     <div class="container mt-5">
-        <!-- {{childTags}} -->
-        <div class="row">
-            <div class="col-sm-3">
-                <h1>Tags</h1>
-                <hr>
-                <input class="tagclick" type="button" value="+" id="0">
+      <!-- {{childTags}} -->
+      <div class="row">
+          <!-- all tags -->
+        <div class="col-sm-3">
+          <h1>Tags</h1>
+          <hr />
+          <input class="tagclick" type="button" value="+" id="0" />
 
-                <div id="replace">
-                    {{tags|safe}}
+          <div id="replace">{{tags|safe}}</div>
+        </div>
+
+        <div class="col-sm-7">
+          <!-- sava note -->
+          <div class="row">
+            <div class="col-sm-12">
+              <form action="" method="POST">
+                {% csrf_token %}
+                <input
+                  placeholder="Note Title"
+                  class="form-control mb-1"
+                  type="text"
+                  name="title"
+                  id="titleid"
+                />
+                <textarea
+                  placeholder="Lorem Ipsum Dollar site ammet"
+                  class="form-control"
+                  name="subject"
+                  id="subjectid"
+                  cols="30"
+                  rows="10"
+                ></textarea>
+              </form>
+              <div class="d-flex justify-content-between mt-2">
+                <div id="checkbox-select" class="">
+                  <span>Tags: </span>
                 </div>
+                <div>
+                  <input
+                    type="button"
+                    id="btnclear"
+                    class="btn btn-warning"
+                    value="Clear"
+                  />
+                  <input
+                    type="button"
+                    id="btnsave"
+                    class="btn btn-success"
+                    value="Save"
+                  />
+                </div>
+              </div>
             </div>
+          </div>
 
-            <div class="col-sm-7">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <form action="" method="POST">
-                            {% csrf_token %}
-                            <input placeholder="Note Title" class="form-control mb-1" type="text" name="title" id="titleid">
-                            <textarea placeholder="Lorem Ipsum Dollar site ammet" class="form-control" name="subject" id="subjectid" cols="30" rows="10"></textarea>
-                        </form>
-                        <div class="d-flex justify-content-between mt-2">
-                            <div id="checkbox-select" class="">
-                                <span>Tags: </span>
-                            </div>
-                            <div>
-                            <input type="button" id="btnclear" class="btn btn-warning" value="Clear">
-                            <input type="button" id="btnsave" class="btn btn-success" value="Save">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row mt-4">
-                    <div class="col-sm-4">
-                        <div id="notetitle">
-                            {% for note in notes  %}
-                              <p>{{note}}</p>
-                            {% endfor %}
-                        </div>
-                    </div>
-                    <div class="col-sm-8">
-                        <div class="overflow-auto" style="height: 100px;">
-                            {% for i in childTags  %}
-                              <input name="{{i.tag_name}}" type="checkbox" value="{{i.id}}"> {{i.tag_name}} <br>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-               
+          <div class="row mt-4">
+            <div class="col-sm-4">
+              <div id="notetitle">
+                {% for note in notes %}
+                <p>{{note}}</p>
+                {% endfor %}
+              </div>
             </div>
-        </div>  
+            <!-- Check box -->
+            <div class="col-sm-8">
+              <div class="overflow-auto" style="height: 100px">
+                {% for i in childTags %}
+                <input name="{{i.tag_name}}" type="checkbox" value="{{i.id}}" />
+                {{i.tag_name}} <br />
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script src="{% static 'base/js/jquery.js' %}"></script>
-    
-    {% include "base/ajax.html" %}
 
-</body>
+    {% include "base/ajax.html" %}
+  </body>
 </html>

@@ -1,14 +1,14 @@
 from cgi import print_directory
 from itertools import chain
 from traceback import print_tb
-from django.shortcuts import render,redirect
-from django.http import HttpResponse, JsonResponse
-from django.views.decorators.csrf import csrf_exempt
+
 from django.db.models import F
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import redirect, render
+from django.views.decorators.csrf import csrf_exempt
 
+from .models import Note, Tag
 
-from . models import Tag
-from . models import Note
 
 def allTags():
 
@@ -47,7 +47,6 @@ def home(request):
 
     childTags = Tag.objects.filter(parent_id__in = a)
 
-
     notes = Note.objects.all()
     tags = allTags()
     
@@ -71,7 +70,6 @@ def save_category(request):
         tag.save()
 
     htmltag = allTags()
-
 
     return JsonResponse({'status': 1, 'htmltag':htmltag})
 

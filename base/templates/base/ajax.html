@@ -1,121 +1,111 @@
 <script>
+  let checkArr = [];
 
-let checkArr = [];
+  //******************Tags section***************************//
+  $(document).on('click', '.tagclick', function () {
+    $('.tagparent').remove();
+    let a = $(this).attr('id');
+    $(this).after(
+      "<div class='tagparent'><input class='tagvalue' type='text' data-id='" +
+        a +
+        "'><input class='tagsave' type='submit' value='Save'/>  </div>"
+    );
+    console.log(a);
+  });
+  $(document).on('mouseleave', '.tagparent', function (event) {
+    $(this).remove();
+  });
+  $(document).on('click', '.tagsave', function () {
+    let tagName = $(this).parent().find('.tagvalue').val();
+    let tagId = $(this).parent().find('.tagvalue').attr('data-id');
+    $(this).parent().remove();
 
+    //console.log(tagName, tagId);
 
+    categoryData = { tagName: tagName, tagId: tagId };
 
-//******************Tags section***************************//
+    $.ajax({
+      url: "{% url 'save-category' %}",
+      method: 'POST',
+      data: categoryData,
+      success: function (data) {
+        console.log(data);
+        $('#replace').html(data.htmltag);
+      },
+    });
+  });
 
+  //******************End Tags section***************************//
 
-$(document).on('click', ".tagclick", function(){
-            $(".catparent").remove();
-            let a = $(this).attr('id');
-            $(this).after("<div class='catparent'><input class='tagvalue' type='text' data-id='" + a +"'><input class='tagsave' type='submit' value='Save'/>  </div>")
-            console.log(a);
-        });
-        $(document).on('click', ".tagsave", function(){
-            let tagName = $(this).parent().find('.tagvalue').val();
-            let tagId = $(this).parent().find('.tagvalue').attr('data-id');
-            $(this).parent().remove();
-
-            //console.log(tagName, tagId);
-
-            categoryData = {tagName: tagName, tagId: tagId}
-
-            $.ajax({
-                
-                url: "{% url 'save-category' %}",
-                method: 'POST',
-                data: categoryData,
-                success: function(data){
-                    console.log(data);
-                    $("#replace").html(data.htmltag);
-                }
-                
-            });
-        });
-
-
-//******************End Tags section***************************//
-
-
-
-//Form Clear
-function clearForm(){
-    $("form")[0].reset();
-    $("#checkbox-select").html('Tags: ');
-    $('input:checkbox').prop( "checked", false );
+  //Form Clear
+  function clearForm() {
+    $('form')[0].reset();
+    $('#checkbox-select').html('Tags: ');
+    $('input:checkbox').prop('checked', false);
     checkArr = [];
-}
+  }
 
+  $('#btnsave').click(function () {
+    console.log('Save Button Clicked');
+    let title = $('#titleid').val();
+    let subject = $('#subjectid').val();
+    let csr = $('input[name=csrfmiddlewaretoken]').val();
+    checkArr = [];
+    $(':checkbox:checked').each(function () {
+      checkArr.push($(this).val());
+    });
 
+    let output = '';
 
-$("#btnsave").click(function(){
-        console.log("Save Button Clicked");
-        let title = $("#titleid").val();
-        let subject = $("#subjectid").val();
-        let csr = $("input[name=csrfmiddlewaretoken]").val();
-         checkArr = [];
-         $(':checkbox:checked').each(function () {
-        
-        checkArr.push($(this).val());
-       });
+    //console.log(title);
+    //console.log(subject);
 
-        let output = '';
+    noteData = {
+      title: title,
+      subject: subject,
+      checkBox: JSON.stringify(checkArr),
+    };
+    console.log(noteData);
 
-        //console.log(title);
-        //console.log(subject);
+    $.ajax({
+      url: "{% url 'save' %}",
+      method: 'POST',
+      data: noteData,
+      success: function (data) {
+        // console.log(data);
+        notes = data.notes;
 
-        noteData = {title: title, subject: subject, checkBox:JSON.stringify(checkArr)};
-        console.log(noteData);
+        if (data.status == 1) {
+          notes = data.notes;
 
-        $.ajax({
+          for (let i = 0; i < notes.length; i++) {
+            output += '<p>' + notes[i].note_title + '</p>';
+          }
 
-            url: "{% url 'save' %}",
-            method: "POST",
-            data: noteData,
-            success: function(data){
-               // console.log(data);
-                notes = data.notes;
+          $('#notetitle').html(output);
+          clearForm();
+        }
+      },
+    });
+  });
 
-                if(data.status == 1){
-                    notes = data.notes;
-
-                    for(let i =0; i< notes.length; i++){
-                        output += "<p>" + notes[i].note_title + "</p>";
-                    }
-
-                    $("#notetitle").html(output);
-                    clearForm();
-                   
-                }
-                
-            }
-        });
-        
-});
-
-
-//form clear
-$("#btnclear").click(function(){
+  //form clear
+  $('#btnclear').click(function () {
     clearForm();
     //console.log($('input:checkbox'));
-});
+  });
 
-//Check Box
-$("input[type=checkbox]").click(function(){
-   
+  //Check Box
+  $('input[type=checkbox]').click(function () {
     checkArr = [];
     let checkBoxOutput = 'Tags: ';
 
     $(':checkbox:checked').each(function () {
-        checkBoxOutput += "<span>" + $(this).attr('name') + "</span> ";
-        checkArr.push($(this).val());
-       });
+      checkBoxOutput += '<span>' + $(this).attr('name') + '</span> ';
+      checkArr.push($(this).val());
+    });
 
-       $("#checkbox-select").html(checkBoxOutput);
-       console.log(checkArr);
-});
-
-
+    $('#checkbox-select').html(checkBoxOutput);
+    console.log(checkArr);
+  });
 </script>
