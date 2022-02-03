@@ -6,4 +6,5 @@ urlpatterns = [
 
     path('', views.home, name='home'),
     path('save/', views.save_note, name='save'),
+    path('save-category',views.save_category, name='save-category'),
 ]
