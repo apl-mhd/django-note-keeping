@@ -1,3 +1,4 @@
+from itertools import chain
 from traceback import print_tb
 from django.shortcuts import render,redirect
 from django.http import HttpResponse, JsonResponse
@@ -38,6 +39,9 @@ def allTags():
 
 def home(request):
 
+    a = None
+    childTags = Tag.objects.values()
+
     notes = Note.objects.all()
     tags = allTags()
     context = { 'notes': notes, 'tags':tags}
@@ -68,10 +72,6 @@ def save_category(request):
 @csrf_exempt
 def save_note(request):
 
-    print("-----------")
-    print(request.POST['checkBox'])
-    print("-----------")
-
 
     if request.method == 'POST':
         title = request.POST['title']
@@ -82,6 +82,4 @@ def save_note(request):
         note.save()
         notes = list(Note.objects.values())
     return JsonResponse({'status':1, 'notes':notes})
-    
-    # else:
-    #     return JsonResponse({'status':0, 'notes':no})
+
