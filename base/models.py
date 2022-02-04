@@ -15,7 +15,7 @@ class Tag(models.Model):
 class Note(models.Model):
     note_title = models.CharField(max_length=100)
     note_subject = models.TextField(default=NULL)
-    note_tag = models.TextField(default=NULL)
+    leaf_tag = models.ManyToManyField(Tag, default=NULL, blank=True)
 
     def __str__(self):
         return self.note_title

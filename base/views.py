@@ -1,4 +1,3 @@
-
 from django.db.models import F
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
@@ -42,7 +41,6 @@ def home(request):
 
     
     parentId = {i[0] for i in Tag.objects.values_list('parent_id')}
-     
     childTags = Tag.objects.exclude(id__in = parentId)
 
     notes = Note.objects.all()
@@ -79,10 +77,10 @@ def save_note(request):
     if request.method == 'POST':
         title = request.POST['title']
         subject = request.POST['subject']
-        note_tag = request.POST.get('checkBox')
-        print(note_tag)
-        note = Note(note_title = title, note_subject = subject, note_tag = note_tag)
-        note.save()
+        leaf_tag_id = request.POST.getlist('checkBox[]') 
+
+        leaf_tag_id = Tag.objects.filter(id__in = leaf_tag_id)
+        Note.objects.create(note_title = title, note_subject = subject).leaf_tag.add(* leaf_tag_id)
         notes = list(Note.objects.values())
     return JsonResponse({'status':1, 'notes':notes})
 
