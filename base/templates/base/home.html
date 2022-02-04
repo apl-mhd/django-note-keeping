@@ -70,7 +70,8 @@
             <div class="col-sm-4">
               <div id="notetitle">
                 {% for note in notes %}
-                <p>{{note}}</p>
+                <h6>{{note}}</h6>
+                <hr />
                 {% endfor %}
               </div>
             </div>
@@ -78,8 +79,19 @@
             <div class="col-sm-8">
               <div class="overflow-auto" style="height: 100px">
                 {% for i in childTags %}
-                <input name="{{i.tag_name}}" type="checkbox" value="{{i.id}}" />
-                {{i.tag_name}} <br />
+
+                <div class="form-check">
+                  <input
+                    name="{{i.tag_name}}"
+                    class="form-check-input"
+                    type="checkbox"
+                    value="{{i.id}}"
+                    id="{{i.tag_name}}"
+                  />
+                  <label class="form-check-label" for="{{i.tag_name}}">
+                    {{i.tag_name}}
+                  </label>
+                </div>
                 {% endfor %}
               </div>
             </div>
