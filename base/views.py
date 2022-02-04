@@ -8,7 +8,11 @@ from .models import Note, Tag
 
 def allTags():
 
-    htmltag = '<ul>'
+    ulS = '<ul>'
+    ulE = '</ul>'
+    liS = '<li>'
+    liE = '</li>'
+    htmltag = '<ul>' 
 
     def recur(id, x): 
         child = Tag.objects.filter(parent_id = id )
@@ -19,18 +23,18 @@ def allTags():
                 x += '<li> <a class="tagclick" id="'+id +'" href="#">'+ j.tag_name + '</a>'
                 x = recur(j.id, x)
             
-            x +='</ul>'
+            x += '</ul>'
         x += '</li>'
         return x
 
-    categories = Tag.objects.filter(parent_id = None)
+    tags = Tag.objects.filter(parent_id = None)
     
    # print(categories)
 
-    for cat in categories:
-        id = str(cat.id)
-        htmltag += '<li> <a class="tagclick" id="'+id +'"  href="#">'+ cat.tag_name + '</a>'
-        htmltag = recur(cat.id, htmltag)
+    for tag in tags:
+        id = str(tag.id)
+        htmltag += '<li> <a class="tagclick" id="'+id +'"tag  href="#">'+ tag.tag_name + '</a>'
+        htmltag = recur(tag.id, htmltag)
 
     htmltag += '</ul>'
     return htmltag
