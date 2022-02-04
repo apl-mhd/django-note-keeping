@@ -1,7 +1,8 @@
 <script>
   let checkArr = [];
 
-  //******************Tags section***************************//
+  //Tags section
+
   $(document).on('click', '.tagclick', function () {
     $('.tagparent').remove();
     let a = $(this).attr('id');
@@ -35,7 +36,7 @@
     });
   });
 
-  //******************End Tags section***************************//
+  //End Tags section
 
   //Form Clear
   function clearForm() {
@@ -45,6 +46,7 @@
     checkArr = [];
   }
 
+  //note saved
   $('#btnsave').click(function () {
     console.log('Save Button Clicked');
     let title = $('#titleid').val();
@@ -95,7 +97,7 @@
     //console.log($('input:checkbox'));
   });
 
-  //Check Box
+  //Check Box, display all checked tag under form
   $('input[type=checkbox]').click(function () {
     checkArr = [];
     let checkBoxOutput = 'Tags: ';

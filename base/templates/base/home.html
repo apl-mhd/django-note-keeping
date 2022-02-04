@@ -10,9 +10,8 @@
   </head>
   <body>
     <div class="container mt-5">
-      <!-- {{childTags}} -->
       <div class="row">
-          <!-- all tags -->
+        <!-- all tags -->
         <div class="col-sm-3">
           <h1>Tags</h1>
           <hr />
@@ -22,7 +21,7 @@
         </div>
 
         <div class="col-sm-7">
-          <!-- sava note -->
+          <!-- Note Form -->
           <div class="row">
             <div class="col-sm-12">
               <form action="" method="POST">
@@ -43,6 +42,7 @@
                   rows="10"
                 ></textarea>
               </form>
+              <!-- Form clear and save button -->
               <div class="d-flex justify-content-between mt-2">
                 <div id="checkbox-select" class="">
                   <span>Tags: </span>
@@ -65,6 +65,7 @@
             </div>
           </div>
 
+          <!-- Display saved not and all Tag's leaf node -->
           <div class="row mt-4">
             <div class="col-sm-4">
               <div id="notetitle">
@@ -73,7 +74,7 @@
                 {% endfor %}
               </div>
             </div>
-            <!-- Check box -->
+            <!-- Check box for leaf node -->
             <div class="col-sm-8">
               <div class="overflow-auto" style="height: 100px">
                 {% for i in childTags %}
