@@ -1,6 +1,3 @@
-from cgi import print_directory
-from itertools import chain
-from traceback import print_tb
 
 from django.db.models import F
 from django.http import HttpResponse, JsonResponse
@@ -41,11 +38,12 @@ def allTags():
 
 
 def home(request):
+    # SELECT * FROM tag WHERE id not IN (SELECT parent_id FROM child)
 
-    a = Tag.objects.all()
-    print(list(a))
-
-    childTags = Tag.objects.filter(parent_id__in = a)
+    
+    parentId = {i[0] for i in Tag.objects.values_list('parent_id')}
+     
+    childTags = Tag.objects.exclude(id__in = parentId)
 
     notes = Note.objects.all()
     tags = allTags()
