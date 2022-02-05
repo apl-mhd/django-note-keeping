@@ -39,75 +39,77 @@
   //End Tags section
 
   //Form Clear
-  function clearForm() {
-    $('form')[0].reset();
-    $('#checkbox-select').html('Tags: ');
-    $('input:checkbox').prop('checked', false);
-    checkArr = [];
-  }
+  // function clearForm() {
+  //   $('form')[0].reset();
+  //   $('#checkbox-select').html('Tags: ');
+  //   $('input:checkbox').prop('checked', false);
+  //   checkArr = [];
+  // }
 
   //note saved
-  $('#btnsave').click(function () {
-    console.log('Save Button Clicked');
-    let title = $('#titleid').val();
-    let subject = $('#subjectid').val();
-    let csr = $('input[name=csrfmiddlewaretoken]').val();
-    checkArr = [];
-    $(':checkbox:checked').each(function () {
-      checkArr.push($(this).val());
-    });
+  // $('#btnsave').click(function () {
+  //   console.log('Save Button Clicked');
+  //   let title = $('#titleid').val();
+  //   let subject = $('#subjectid').val();
+  //   let csr = $('input[name=csrfmiddlewaretoken]').val();
+  //   checkArr = [];
+  //   $(':checkbox:checked').each(function () {
+  //     checkArr.push($(this).val());
+  //   });
 
-    let output = '';
+  //   let output = '';
 
-    //console.log(title);
-    //console.log(subject);
-    console.log('aa', checkArr);
+  //   //console.log(title);
+  //   //console.log(subject);
+  //   console.log('aa', checkArr);
 
-    noteData = {
-      title: title,
-      subject: subject,
-      'checkBox[]': checkArr,
-    };
+  //   noteData = {
+  //     title: title,
+  //     subject: subject,
+  //     'checkBox[]': checkArr,
+  //   };
 
-    $.ajax({
-      url: "{% url 'save' %}",
-      method: 'POST',
-      data: noteData,
-      success: function (data) {
-        console.log(data);
-        notes = data.notes;
+  //   $.ajax({
+  //     url: "{% url 'save' %}",
+  //     method: 'POST',
+  //     data: noteData,
+  //     success: function (data) {
+  //       console.log(data);
+  //       notes = data.notes;
 
-        if (data.status == 1) {
-          notes = data.notes;
+  //       if (data.status == 1) {
+  //         notes = data.notes;
 
-          for (let i = 0; i < notes.length; i++) {
-            output += '<h6>' + notes[i].note_title + '</h6> <hr/>';
-          }
+  //         for (let i = 0; i < notes.length; i++) {
+  //           output += '<h6>' + notes[i].note_title + '</h6> <hr/>';
+  //         }
 
-          $('#notetitle').html(output);
-          clearForm();
-        }
-      },
-    });
-  });
+  //         $('#notetitle').html(output);
+  //         clearForm();
+  //       }
+  //     },
+  //   });
+  // });
 
   //form clear
-  $('#btnclear').click(function () {
-    clearForm();
-    //console.log($('input:checkbox'));
-  });
+  // $('#btnclear').click(function () {
+  //   clearForm();
+  //   //console.log($('input:checkbox'));
+  // });
 
   //Check Box, display all checked tag under form
-  $('input[type=checkbox]').click(function () {
-    checkArr = [];
-    let checkBoxOutput = 'Tags: ';
+  // $('input[type=checkbox]').click(function () {
+  //   checkArr = [];
+  //   let checkBoxOutput = 'Tags: ';
 
-    $(':checkbox:checked').each(function () {
-      checkBoxOutput += '<span>' + $(this).attr('name') + '</span> ';
-      checkArr.push($(this).val());
-    });
+  //   $(':checkbox:checked').each(function () {
+  //     checkBoxOutput += '<span>' + $(this).attr('name') + '</span> ';
+  //     checkArr.push($(this).val());
+  //   });
 
-    $('#checkbox-select').html(checkBoxOutput);
-    console.log(checkArr);
-  });
+  //   $('#checkbox-select').html(checkBoxOutput);
+  //   console.log(checkArr);
+  // });
+
+
 </script>
