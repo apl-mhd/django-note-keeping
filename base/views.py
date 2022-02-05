@@ -69,9 +69,13 @@ def save_category(request):
         tag = Tag(tag_name=tagName, parent_id=parentId)
         tag.save()
 
+         
+        parentId = {i[0] for i in Tag.objects.values_list('parent_id')}
+        childTags = list(Tag.objects.exclude(id__in = parentId).values())
+
     htmltag = allTags()
 
-    return JsonResponse({'status': 1, 'htmltag':htmltag})
+    return JsonResponse({'status': 1, 'htmltag':htmltag, 'childTags': childTags })
 
 
 @csrf_exempt
@@ -86,5 +90,7 @@ def save_note(request):
         leaf_tag_id = Tag.objects.filter(id__in = leaf_tag_id)
         Note.objects.create(note_title = title, note_subject = subject).leaf_tag.add(* leaf_tag_id)
         notes = list(Note.objects.values())
+
+
     return JsonResponse({'status':1, 'notes':notes})
 

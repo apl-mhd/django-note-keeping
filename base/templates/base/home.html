@@ -73,7 +73,7 @@
             </div>
             <!-- Check box for leaf node -->
             <div class="col-sm-8">
-              <div class="overflow-auto" style="height: 100px">
+              <div id="childtag" class="overflow-auto" style="height: 100px">
                 {% for i in childTags %}
 
                 <div class="form-check">
@@ -166,7 +166,7 @@
             }
           }
           chekTagName.innerHTML += item;
-          console.log('raw javascript', chekTagName);
+          console.log('raw javascript', chekArr);
         });
       }
       // clear all check box after form submit
@@ -217,3 +217,7 @@
     {% include "base/ajax.html" %}
   </body>
 </html>
+
+
+
+

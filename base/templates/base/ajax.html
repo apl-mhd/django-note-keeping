@@ -1,5 +1,6 @@
 <script>
   let checkArr = [];
+  let output = '';
 
   //Tags section
 
@@ -21,6 +22,8 @@
     let tagId = $(this).parent().find('.tagvalue').attr('data-id');
     $(this).parent().remove();
 
+    output = '';
+
     //console.log(tagName, tagId);
 
     categoryData = { tagName: tagName, tagId: tagId };
@@ -31,6 +34,26 @@
       data: categoryData,
       success: function (data) {
         console.log(data);
+
+        let tag = data.childTags;
+        for (let i = 0; i < tag.length; i++) {
+          output += `
+           <div class="form-check">
+                  <input
+                    name="${tag[i].tag_name}"
+                    class="form-check-input chekbox"
+                    type="checkbox"
+                    value="${tag[i].id}"
+                    id="${tag[i].tag_name}"
+                  />
+                  <label class="form-check-label" for="${tag[i].tag_name}">
+                    ${tag[i].tag_name}
+                  </label>
+            </div>
+          `;
+        }
+
+        $('#childtag').html(output);
         $('#replace').html(data.htmltag);
       },
     });
@@ -110,6 +133,4 @@
   //   $('#checkbox-select').html(checkBoxOutput);
   //   console.log(checkArr);
   // });
-
-
 </script>
