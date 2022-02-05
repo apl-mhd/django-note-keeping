@@ -36,6 +36,7 @@ def noteDetail(request, pk):
 
 @api_view(['POST'])
 def noteCreate(request):
+	print(request.data)
 	serializer =NoteSerrializer(data = request.data)
 	
 	if serializer.is_valid():
