@@ -36,6 +36,9 @@ def noteDetail(request, pk):
 
 @api_view(['POST'])
 def noteCreate(request):
+	print(request.data)
+	#{'id': 44, 'note_title': 'api', 'note_subject': 'Hello', 'leaf_tag': [2, 3, 4, 5]}
+	#javascrip form {'note_title': 'api2', 'note_subject': 'aoafa'}
 	serializer =NoteSerrializer(data = request.data)
 	
 	if serializer.is_valid():
