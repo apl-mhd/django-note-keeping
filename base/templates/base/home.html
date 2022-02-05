@@ -78,6 +78,7 @@
 
                 <div class="form-check">
                   <input
+                    onclick="clk()"
                     name="{{i.tag_name}}"
                     class="form-check-input chekbox"
                     type="checkbox"
@@ -151,24 +152,26 @@
       let chekArr = [];
       let checkName = [];
 
-      for (let i = 0; i < chekbox.length; i++) {
-        chekbox[i].addEventListener('click', function () {
-          chekArr = [];
-          checkName = [];
-          chekTagName.innerHTML = '<spant>Tags: </span>';
-          let item = '';
-          for (let i = 0; i < chekbox.length; i++) {
-            if (chekbox[i].checked) {
-              chekArr.push(parseInt(chekbox[i].value));
-              let tempName = chekbox[i].name;
-              checkName.push(tempName);
-              item += ` <span> ${tempName} </span> `;
-            }
+      function clk() {
+        chekArr = [];
+        checkName = [];
+        chekTagName.innerHTML = '<spant>Tags: </span>';
+        let item = '';
+        for (let i = 0; i < chekbox.length; i++) {
+          if (chekbox[i].checked) {
+            chekArr.push(parseInt(chekbox[i].value));
+            let tempName = chekbox[i].name;
+            checkName.push(tempName);
+            item += ` <span> ${tempName} </span> `;
           }
-          chekTagName.innerHTML += item;
-          console.log('raw javascript', chekArr);
-        });
+        }
+        chekTagName.innerHTML += item;
+        console.log('raw javascript', chekArr);
       }
+
+      // for (let i = 0; i < chekbox.length; i++) {
+      //   chekbox[i].addEventListener('click', function () {});
+      // }
       // clear all check box after form submit
       function clearCheck() {
         for (let i = 0; i < chekbox.length; i++) {
@@ -217,7 +220,3 @@
     {% include "base/ajax.html" %}
   </body>
 </html>
-
-
-
-
