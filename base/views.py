@@ -47,7 +47,7 @@ def home(request):
     parentId = {i[0] for i in Tag.objects.values_list('parent_id')}
     childTags = Tag.objects.exclude(id__in = parentId)
 
-    notes = Note.objects.all()
+    notes = Note.objects.all().order_by('-id')
     tags = allTags()
     
     context = { 'notes': notes, 'tags':tags, 'childTags': childTags}
