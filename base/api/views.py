@@ -2,8 +2,11 @@ from . import views
 from django.http import HttpResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from base.models import Note
-from . serializers import NoteSerrializer
+from base.models import Note, Tag
+from . serializers import NoteSerrializer, TagSerializer
+from base import api
+
+from base.api import serializers
 
 
 @api_view(['GET'])
@@ -18,6 +21,15 @@ def apiOverview(request):
 
 	return Response(api_urls)
 
+
+@api_view(['GET'])
+def leafTag(request):
+	
+	parentId = {i[0] for i in Tag.objects.values_list('parent_id')}
+	childTags = Tag.objects.exclude(id__in = parentId)
+	serializers = TagSerializer(childTags, many=True)
+	return Response(serializers.data)
+	
 
 
 @api_view(['GET'])

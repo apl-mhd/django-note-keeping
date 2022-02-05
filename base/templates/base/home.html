@@ -63,25 +63,6 @@
               </form>
 
               <!-- Form clear and save button -->
-              <div class="d-flex justify-content-between mt-2">
-                <div id="checkbox-select" class="">
-                  <span>Tags: </span>
-                </div>
-                <div>
-                  <input
-                    type="button"
-                    id="btnclear"
-                    class="btn btn-warning"
-                    value="Clear"
-                  />
-                  <input
-                    type="button"
-                    id="btnsave"
-                    class="btn btn-success"
-                    value="Save"
-                  />
-                </div>
-              </div>
             </div>
           </div>
 
@@ -153,7 +134,6 @@
         fetch(url)
           .then((response) => response.json())
           .then(function (data) {
-
             let noteList = data;
 
             for (let i in data) {
