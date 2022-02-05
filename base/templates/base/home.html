@@ -69,10 +69,7 @@
           <div class="row mt-4">
             <div class="col-sm-4">
               <div id="notetitle">
-                {% for note in notes %}
-                <h6>{{note}}</h6>
-                <hr />
-                {% endfor %}
+                <h1>Notes</h1>
               </div>
             </div>
             <!-- Check box for leaf node -->
@@ -101,6 +98,33 @@
     </div>
 
     <script src="{% static 'base/js/jquery.js' %}"></script>
+
+    <script>
+      noteRender();
+      //Render All title
+      function noteRender() {
+        let noteTitle = document.getElementById('notetitle');
+        noteTitle.innerHTML = '';
+        let url = 'http://127.0.0.1:8000/api/note-list';
+
+        fetch(url)
+          .then((response) => response.json())
+          .then(function (data) {
+            // console.log(data);
+            let noteList = data;
+
+            for (let i in data) {
+              let item = `
+                    <h6>${data[i].note_title}</h6> <hr/>
+              `;
+
+              noteTitle.innerHTML += item;
+            }
+          });
+
+        //console.log('item:', noteTitle);
+      }
+    </script>
 
     {% include "base/ajax.html" %}
   </body>
