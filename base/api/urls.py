@@ -12,6 +12,7 @@ urlpatterns = [
     path('note-detail/<str:pk>/', views.noteDetail, name='note-detail'),
     path('note-create/', views.noteCreate, name='note-create'),
     path('note-update/<str:pk>/', views.noteUpdate, name='note-update'),
+    path('note-last/', views.noteLast, name='note-last'),
 
     path('leaf-tag/', views.leafTag, name='leaf-tag'),
 

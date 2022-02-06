@@ -1,3 +1,4 @@
+from ast import Not
 from . import views
 from django.http import HttpResponse
 from rest_framework.decorators import api_view
@@ -17,6 +18,9 @@ def apiOverview(request):
 		'Create':'/task-create/',
 		'Update':'/task-update/<str:pk>/',
 		'Delete':'/task-delete/<str:pk>/',
+		'Last Note':'/note-last/',
+		'Leaf Tag': '/leaf-tag/',
+		
 		}
 
 	return Response(api_urls)
@@ -28,6 +32,12 @@ def leafTag(request):
 	parentId = {i[0] for i in Tag.objects.values_list('parent_id')}
 	childTags = Tag.objects.exclude(id__in = parentId)
 	serializers = TagSerializer(childTags, many=True)
+	return Response(serializers.data)
+
+@api_view(['GET'])
+def noteLast(request):
+	lastNote = Note.objects.latest('id')
+	serializers = NoteSerrializer(lastNote, many=False)
 	return Response(serializers.data)
 	
 

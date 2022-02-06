@@ -1,3 +1,5 @@
+//noteLast();
+
 //csrf token
 function getCookie(name) {
   var cookieValue = null;
@@ -16,13 +18,13 @@ function getCookie(name) {
 }
 var csrftoken = getCookie('csrftoken');
 
-noteRender();
 //Render All title
 
 document.getElementsByClassName('leaftag');
+noteTitle = document.getElementById('notetitle');
+noteRender();
 
 function noteRender() {
-  let noteTitle = document.getElementById('notetitle');
   noteTitle.innerHTML = '';
   let url = 'http://127.0.0.1:8000/api/note-list';
 
@@ -38,6 +40,23 @@ function noteRender() {
 
         noteTitle.innerHTML += item;
       }
+    });
+}
+
+function noteLast() {
+  console.log('apel mahmud');
+  let url = 'http://127.0.0.1:8000/api/note-last/';
+
+  fetch(url)
+    .then((response) => response.json())
+    .then(function (data) {
+      console.log(data['note_title']);
+      let h = document.createElement('h6');
+      h.textContent = data['note_title'];
+      let hr = document.createElement('hr');
+      h.append(hr);
+
+      noteTitle.prepend(h);
     });
 }
 
@@ -62,7 +81,7 @@ function clk() {
     }
   }
   chekTagName.innerHTML += item;
-  console.log('raw javascript', chekArr);
+  // console.log('raw javascript', chekArr);
 }
 
 // for (let i = 0; i < chekbox.length; i++) {
@@ -107,7 +126,8 @@ form.addEventListener('submit', function (e) {
       leaf_tag: chekArr,
     }),
   }).then(function (response) {
-    noteRender();
+    noteLast();
+    // noteRender();
     clearCheck();
   });
 });
